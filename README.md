@@ -1,16 +1,14 @@
-# lineal
+# LineAL
 
-A new Flutter project.
+This repository contains the source code of the application "LineAL". It is a flutter-based application that helps the user perform operations such as the addition of two matrices, subtraction of two matrices, multiplication of two matrices, etc.
 
-## Getting Started
+# Operations that can be performed on the app.
+The following operations can be performed on the app:
+1. Addition of matrices.
+2. Subtraction of matrices.
+3. Multiplication of two matrices.
+4. Scalar Multiplication of a matrix.
+5. Trace of a matrix.
+6. Transpose of a matrix.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# How to use the app?
