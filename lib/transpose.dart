@@ -2,43 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'main.dart';
 
-class SubWs extends StatelessWidget {
-  const SubWs({Key? key}) : super(key: key);
+class TransposeWs extends StatelessWidget {
+  const TransposeWs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Stateless Page of the Subtraction page",
+      title: "Stateless Page of the Transpose page",
       home: Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.remove, color: Colors.white),
+            leading: const Icon(Icons.swap_horiz, color: Colors.white),
             title: const Text(
-              "Subtraction of two matrices",
+              "Transpose of a matrix",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             backgroundColor: Colors.black,
           ),
           backgroundColor: Colors.black,
-          body: const Sub(),
+          body: const Transpose(),
     ));
   }
 }
 
-class Sub extends StatefulWidget {
-  const Sub({Key? key}) : super(key: key);
+class Transpose extends StatefulWidget {
+  const Transpose({Key? key}) : super(key: key);
 
   @override
-  State<Sub> createState() => SubState();
+  State<Transpose> createState() => TransposeState();
 }
 
-class SubState extends State<Sub> {
+class TransposeState extends State<Transpose> {
   TextEditingController rc = TextEditingController();
   TextEditingController cc = TextEditingController();
   int rows = 0;
   int columns = 0;
   List<List<num>> m1 = [];
-  List<List<num>> m2 = [];
   List<List<num>> ans = [];
   bool setmatrix = false;
 
@@ -59,9 +58,9 @@ class SubState extends State<Sub> {
                   fillColor: Colors.grey,
                 ),
                 keyboardType: TextInputType.number,
-                // inputFormatters: [
-                //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                // ],
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ],
               ),
             ),
             const SizedBox(width: 10),
@@ -74,13 +73,11 @@ class SubState extends State<Sub> {
                   fillColor: Colors.grey,
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-                ],
               ),
             ),
           ],
         ),
+        const SizedBox(width: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
           child: ElevatedButton(
@@ -90,8 +87,6 @@ class SubState extends State<Sub> {
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
                 m1 = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
-                m2 = List.generate(
                     rows, (i) => List.generate(columns, (j) => 0));
                 ans = List.generate(
                     rows, (i) => List.generate(columns, (j) => 0));
@@ -110,23 +105,18 @@ class SubState extends State<Sub> {
             padding: const EdgeInsets.fromLTRB(0,0,0,15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (rows > 0 && columns > 0)
-          Expanded(
-            flex: 1,
-            child: build2DArray(rows, columns, m2),
-          ),
         if(setmatrix==true)
         Padding(
           padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                ans = sub(m1, m2);
+                ans = transpose(m1);
               });
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             child: const Text(
-              "Subtract",
+              "Find Transpose",
               style:
                   TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
             ),
@@ -141,14 +131,14 @@ class SubState extends State<Sub> {
   }
 }
 
-List<List<num>> sub(List<List<num>> m1, List<List<num>> m2) {
+List<List<num>> transpose(List<List<num>> m1) {
   int rows = m1.length;
   int columns = m1[0].length;
   List<List<num>> ans =
       List.generate(rows, (i) => List.generate(columns, (j) => 0));
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < columns; j++) {
-      ans[i][j] = m1[i][j] - m2[i][j];
+      ans[i][j] = m1[j][i];
     }
   }
   return ans;

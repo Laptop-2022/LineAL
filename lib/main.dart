@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:lineal/multiplication.dart';
 import 'package:lineal/scalarmultiplicationn.dart';
 import 'package:lineal/subtract.dart';
+import 'package:lineal/trace.dart';
+import 'package:lineal/transpose.dart';
 import 'add.dart';
 
 var black = Colors.black;
@@ -101,18 +103,21 @@ class OpsPage extends StatelessWidget {
           listtile(
               'Scalar Multiplication of a matrix', Icons.clear_all_outlined,
               () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const KMulWs()));
-          })
-          // listtile('Multiplication of two matrices', Icons.close,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Multiply()),
-          //     );),
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const KMulWs()));
+          }),
 
-          // listtile('Trace of matrix',Icons.timeline,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Trace()),
-          //     );),
+          listtile('Multiplication of two matrices', Icons.close, () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MulWs()),
+            );
+          }),
+
+          listtile("Trace of a matrix", Icons.timeline, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const TraceWs()));
+          }),
 
           // listtile('Determinant of a matrix',Icons.calculate,
           // Navigator.push(
@@ -120,11 +125,12 @@ class OpsPage extends StatelessWidget {
           //     MaterialPageRoute(builder: (context) =>const Det()),
           //     );),
 
-          // listtile('Transpose of a matrix',Icons.swap_horiz,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Transpose()),
-          //     );
-          // ),
+          listtile("Transpose of a matrix", Icons.swap_horiz, () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>const TransposeWs())
+            );
+          })
 
           // listtile('Co-Factor matrix',Icons.content_copy,Navigator.push(
           //     context,
@@ -199,9 +205,6 @@ Widget build2DArray(int rows, int columns, List<List<num>> array) {
             child: Center(
               child: TextField(
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                ],
                 decoration: InputDecoration(
                     label: Text("${r + 1},${c + 1}"),
                     filled: true,
@@ -245,4 +248,14 @@ Widget showMatrix(List<List<num>> ans) {
           ),
         )),
   );
+}
+
+Widget showNumber(num ans) {
+  return SingleChildScrollView(
+      child: Text("The trace of the matrix is $ans",
+          style: const TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              fontSize: 35)));
 }

@@ -89,9 +89,9 @@ class KMulState extends State<KMul> {
                   fillColor: Colors.grey,
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ],
+                // inputFormatters: [
+                //   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+                // ],
               ),
             ),
         Padding(
