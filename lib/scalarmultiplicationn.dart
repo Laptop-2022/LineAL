@@ -8,12 +8,12 @@ class KMulWs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Stateless Page of the Subtraction page",
+      title: "Stateless Page of the scalar multiplication page",
       home: Scaffold(
           appBar: AppBar(
             leading: const Icon(Icons.remove, color: Colors.white),
             title: const Text(
-              "Subtraction of two matrices",
+              "Scalar multiplication of a matrix",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),

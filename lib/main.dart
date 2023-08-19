@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lineal/adjoint.dart';
+import 'package:lineal/determinant.dart';
+import 'package:lineal/inverse.dart';
 import 'package:lineal/multiplication.dart';
 import 'package:lineal/scalarmultiplicationn.dart';
 import 'package:lineal/subtract.dart';
@@ -119,29 +122,24 @@ class OpsPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const TraceWs()));
           }),
 
-          // listtile('Determinant of a matrix',Icons.calculate,
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Det()),
-          //     );),
-
-          listtile("Transpose of a matrix", Icons.swap_horiz, () {
+          listtile('Determinant of a matrix', Icons.calculate, () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>const TransposeWs())
+              MaterialPageRoute(builder: (context) => const DetWs()),
             );
-          })
+          }),
 
-          // listtile('Co-Factor matrix',Icons.content_copy,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Co_factor),
-          //     );),
+          listtile("Transpose of a matrix", Icons.swap_horiz, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const TransposeWs()));
+          }),
 
-          // listtile('Adjoint of a matrix',Icons.format_indent_increase,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Adjoint()),
-          //     );
-          // ),
+          listtile('Adjoint of a matrix', Icons.format_indent_increase, () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AdjWs()),
+            );
+          }),
 
           // listtile('RREF of a matrix',Icons.linear_scale,Navigator.push(
           //     context,
@@ -154,10 +152,10 @@ class OpsPage extends StatelessWidget {
           //     );
           // ),
 
-          // listtile('Invertibility of a matrix',Icons.swap_vert,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Invert()),
-          //     );),
+          listtile('Inverse of a matrix',Icons.swap_vert,(){Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>const InvWs()),
+              );}),
 
           // listtile('Linear Independence of given vectors',Icons.compare_arrows,Navigator.push(
           //     context,
@@ -239,7 +237,7 @@ Widget showMatrix(List<List<num>> ans) {
                 height: 50,
                 color: Colors.grey,
                 child: Center(
-                  child: Text(ans[r][c].toString(),
+                  child: Text(ans[r][c].toStringAsFixed(4),
                       style: const TextStyle(
                           color: Colors.black, fontStyle: FontStyle.italic)),
                 ),
@@ -250,12 +248,93 @@ Widget showMatrix(List<List<num>> ans) {
   );
 }
 
-Widget showNumber(num ans) {
+Widget showNumber(num ans, String op) {
   return SingleChildScrollView(
-      child: Text("The trace of the matrix is $ans",
+      child: Text("The $op of the matrix is $ans",
           style: const TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic,
               fontSize: 35)));
+}
+
+num determinant(List<List<num>> m) {
+  if (m.length == 1 && m[0].length == 1) {
+    return m[0][0];
+  }
+
+  if (m.length == 2 && m[0].length == 2) {
+    return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
+  }
+
+  num det = 0;
+  int rows = m.length;
+  int columns = m[0].length;
+  int r = 0;
+
+  for (int c = 0; c < columns; c++) {
+    List<List<num>> sm = [];
+
+    for (int i = 1; i < rows; i++) {
+      List<num> v = [];
+
+      for (int j = 0; j < columns; j++) {
+        if (j == c) {
+          continue;
+        }
+        v.add(m[i][j]);
+      }
+      sm.add(v);
+    }
+    if ((r + c) % 2 == 0) {
+      det += m[r][c] * determinant(sm);
+    } else {
+      det -= m[r][c] * determinant(sm);
+    }
+  }
+  return det;
+}
+
+List<List<num>> adjoint(List<List<num>> m) {
+  List<List<num>> adj = [];
+  adj = List.generate(
+      m.length, (index) => List.generate(m.length, (indexx) => 0));
+
+  for (int r = 0; r < m.length; r++) {
+    for (int c = 0; c < m.length; c++) {
+      List<List<num>> sm = [];
+
+      for (int i = 0; i < m.length; i++) {
+        if (i == r) {
+          continue;
+        }
+
+        List<num> v = [];
+        for (int j = 0; j < m.length; j++) {
+          if (j == c) {
+            continue;
+          }
+
+          v.add(m[i][j]);
+        }
+        sm.add(v);
+      }
+
+      adj[c][r] = ((r + c) % 2 == 0) ? determinant(sm) : -1 * determinant(sm);
+    }
+  }
+  return adj;
+}
+
+List<List<num>> scalarmultiply(List<List<num>> m1, num k) {
+  int rows = m1.length;
+  int columns = m1[0].length;
+  List<List<num>> ans =
+      List.generate(rows, (i) => List.generate(columns, (j) => 0));
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < columns; j++) {
+      ans[i][j] = m1[i][j] * k;
+    }
+  }
+  return ans;
 }
