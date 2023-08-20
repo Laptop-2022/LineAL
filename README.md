@@ -10,5 +10,9 @@ The following operations can be performed on the app:
 4. Scalar Multiplication of a matrix.
 5. Trace of a matrix.
 6. Transpose of a matrix.
+7. Determinant of a matrix.
+8. Adjoint of a matrix.
+9. Inverse of a matrix.
+10. Row-reduced Echelon form(RREF) of a matrix.
 
 # How to use the app?
