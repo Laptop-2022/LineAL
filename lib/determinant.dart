@@ -13,7 +13,7 @@ class DetWs extends StatelessWidget {
           appBar: AppBar(
             leading: const Icon(Icons.calculate, color: Colors.white),
             title: const Text(
-              "Determinant of a matrix",
+              "Determinant",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),

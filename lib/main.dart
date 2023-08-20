@@ -33,9 +33,8 @@ class Home extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 30.0,
                 wordSpacing: 2.0)),
-              centerTitle: true,
+        centerTitle: true,
         backgroundColor: black,
       ),
       backgroundColor: black,
@@ -44,12 +43,15 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('''What do you wanna do today ?''',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                      )),
+            const Text(
+              '''What do you wanna do today ?''',
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+              textAlign: TextAlign.center,
+            ),
             IconButton(
               onPressed: () {
                 Navigator.push(
@@ -57,7 +59,10 @@ class Home extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const OpsPage()),
                 );
               },
-              icon: const Icon(Icons.article_rounded,size: 35,),
+              icon: const Icon(
+                Icons.article_rounded,
+                size: 35,
+              ),
               color: Colors.grey,
             )
           ],
@@ -88,7 +93,7 @@ class OpsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Operations',
-          style: TextStyle(fontWeight: FontWeight.bold,fontSize:30 ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         centerTitle: true,
@@ -100,65 +105,56 @@ class OpsPage extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const AddWs()));
           }),
-
           listtile('Subtraction of two matrices', Icons.remove, () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const SubWs()),
             );
           }),
-
           listtile(
               'Scalar Multiplication of a matrix', Icons.clear_all_outlined,
               () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const KMulWs()));
           }),
-
           listtile('Multiplication of two matrices', Icons.close, () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MulWs()),
             );
           }),
-
           listtile("Trace of a matrix", Icons.timeline, () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const TraceWs()));
           }),
-
-           listtile("Transpose of a matrix", Icons.swap_horiz, () {
+          listtile("Transpose of a matrix", Icons.swap_horiz, () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const TransposeWs()));
           }),
-
           listtile('Determinant of a matrix', Icons.calculate, () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const DetWs()),
             );
           }),
-
           listtile('Adjoint of a matrix', Icons.format_indent_increase, () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AdjWs()),
             );
           }),
-
           listtile('Inverse of a matrix', Icons.swap_vert, () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const InvWs()),
             );
           }),
-
-          listtile('RREF of a matrix',Icons.linear_scale,(){Navigator.push(
+          listtile('RREF of a matrix', Icons.linear_scale, () {
+            Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>const RrEfWs()),
-              );}),
-
-          
+              MaterialPageRoute(builder: (context) => const RrEfWs()),
+            );
+          }),
         ],
       ),
     );

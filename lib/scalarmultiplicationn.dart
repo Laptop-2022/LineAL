@@ -13,7 +13,7 @@ class KMulWs extends StatelessWidget {
           appBar: AppBar(
             leading: const Icon(Icons.remove, color: Colors.white),
             title: const Text(
-              "Scalar multiplication of a matrix",
+              "Scalar multiplication",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),

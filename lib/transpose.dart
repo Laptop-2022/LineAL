@@ -13,7 +13,7 @@ class TransposeWs extends StatelessWidget {
           appBar: AppBar(
             leading: const Icon(Icons.swap_horiz, color: Colors.white),
             title: const Text(
-              "Transpose of a matrix",
+              "Transpose",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),

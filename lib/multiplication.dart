@@ -13,7 +13,7 @@ class MulWs extends StatelessWidget {
           appBar: AppBar(
             leading: const Icon(Icons.close, color: Colors.white),
             title: const Text(
-              "Multiplication of two matrices",
+              "Multiplication",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),

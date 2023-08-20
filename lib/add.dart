@@ -13,7 +13,7 @@ class AddWs extends StatelessWidget {
           appBar: AppBar(
             leading: const Icon(Icons.add, color: Colors.white),
             title: const Text(
-              "Addition of two matrices",
+              "Addition",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),

@@ -11,15 +11,16 @@ class RrEfWs extends StatelessWidget {
         title: "Stateless Page of the scalar multiplication page",
         home: Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.linear_scale, color: Colors.white),
-            title: const Text(
-              "Scalar multiplication of a matrix",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading: const Icon(Icons.linear_scale, color: Colors.white),
+              title: const Text(
+                "RREF of a matrix",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const RrEf(),
         ));
@@ -135,43 +136,40 @@ class RrEfState extends State<RrEf> {
 }
 
 List<List<num>> rref(List<List<num>> matrix) {
-  int r = matrix.length; // Number of rows
-  int c = matrix[0].length; // Number of columns
+  int numRows = matrix.length;
+  int numCols = matrix[0].length;
 
-  int h = 0; // Pivot row index
-  int k = 0; // Pivot column index
-  List<List<num>> m = matrix;
-  while (h < r && k < c) {
-    // Find the index of the maximum absolute value in the k-th column
-    int imax = h;
-    for (int i = h + 1; i < r; i++) {
-      if (m[i][k].abs() > m[imax][k].abs()) {
-        imax = i;
+  for (int pivotRow = 0; pivotRow < numRows; pivotRow++) {
+    // Find the pivot column for the current row
+    int pivotCol = -1;
+    for (int col = 0; col < numCols - 1; col++) {
+      if (matrix[pivotRow][col] != 0) {
+        pivotCol = col;
+        break;
       }
     }
 
-    if (m[imax][k] == 0) {
-      // No pivot in this column, move to the next column
-      k++;
-    } else {
-      // Swap the rows to make the pivot non-zero
-      List<num> temp = m[h];
-      m[h] = m[imax];
-      m[imax] = temp;
+    if (pivotCol == -1) {
+      // Skip if the pivot column is not found
+      continue;
+    }
 
-      // Perform row operations to make elements below the pivot column zero
-      for (int i = h + 1; i < r; i++) {
-        double f = m[i][k] / m[h][k];
-        m[i][k] = 0; // Lower part of pivot column
-        for (int j = k + 1; j < c; j++) {
-          m[i][j] -= m[h][j] * f; // Update remaining elements in the row
+    // Scale the pivot row so that the pivot element becomes 1
+    num pivotValue = matrix[pivotRow][pivotCol];
+    for (int col = 0; col < numCols; col++) {
+      matrix[pivotRow][col] /= pivotValue;
+    }
+
+    // Eliminate other elements in the pivot column
+    for (int row = 0; row < numRows; row++) {
+      if (row != pivotRow) {
+        num scale = matrix[row][pivotCol];
+        for (int col = 0; col < numCols; col++) {
+          matrix[row][col] -= scale * matrix[pivotRow][col];
         }
       }
-
-      // Move to the next pivot row and column
-      h++;
-      k++;
     }
   }
-  return m;
+
+  return matrix;
 }

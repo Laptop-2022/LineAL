@@ -13,7 +13,7 @@ class SubWs extends StatelessWidget {
           appBar: AppBar(
             leading: const Icon(Icons.remove, color: Colors.white),
             title: const Text(
-              "Subtraction of two matrices",
+              "Subtraction",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),
