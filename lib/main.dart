@@ -3,6 +3,7 @@ import 'package:lineal/adjoint.dart';
 import 'package:lineal/determinant.dart';
 import 'package:lineal/inverse.dart';
 import 'package:lineal/multiplication.dart';
+import 'package:lineal/rref.dart';
 import 'package:lineal/scalarmultiplicationn.dart';
 import 'package:lineal/subtract.dart';
 import 'package:lineal/trace.dart';
@@ -28,24 +29,27 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("LineAL",
+        title: const Text("LineAL.",
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 25.0,
+                fontSize: 30.0,
                 wordSpacing: 2.0)),
+              centerTitle: true,
         backgroundColor: black,
       ),
       backgroundColor: black,
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('What do you wanna do today ?',
+            const Text('''What do you wanna do today ?''',
                 style: TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255),
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                      )),
             IconButton(
               onPressed: () {
                 Navigator.push(
@@ -53,7 +57,7 @@ class Home extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const OpsPage()),
                 );
               },
-              icon: const Icon(Icons.article_rounded),
+              icon: const Icon(Icons.article_rounded,size: 35,),
               color: Colors.grey,
             )
           ],
@@ -71,6 +75,7 @@ Widget listtile(String op, IconData icon, VoidCallback tap) {
         style:
             const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
       ),
+      titleAlignment: ListTileTitleAlignment.center,
       onTap: tap);
 }
 
@@ -83,7 +88,7 @@ class OpsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Operations',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold,fontSize:30 ),
         ),
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         centerTitle: true,
@@ -122,16 +127,16 @@ class OpsPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const TraceWs()));
           }),
 
+           listtile("Transpose of a matrix", Icons.swap_horiz, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const TransposeWs()));
+          }),
+
           listtile('Determinant of a matrix', Icons.calculate, () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const DetWs()),
             );
-          }),
-
-          listtile("Transpose of a matrix", Icons.swap_horiz, () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const TransposeWs()));
           }),
 
           listtile('Adjoint of a matrix', Icons.format_indent_increase, () {
@@ -141,44 +146,19 @@ class OpsPage extends StatelessWidget {
             );
           }),
 
-          // listtile('RREF of a matrix',Icons.linear_scale,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const RREF()),
-          //     );),
-
-          // listtile('Rank of a matrix',Icons.trending_up,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const Rank()),
-          //     );
-          // ),
-
-          listtile('Inverse of a matrix',Icons.swap_vert,(){Navigator.push(
+          listtile('Inverse of a matrix', Icons.swap_vert, () {
+            Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>const InvWs()),
+              MaterialPageRoute(builder: (context) => const InvWs()),
+            );
+          }),
+
+          listtile('RREF of a matrix',Icons.linear_scale,(){Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>const RrEfWs()),
               );}),
 
-          // listtile('Linear Independence of given vectors',Icons.compare_arrows,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const LID()),
-          //     );
-          // ),
-
-          // listtile('Basis of row space',Icons.view_carousel,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const RS()),
-          //     );),
-
-          // listtile('Basis of column space',Icons.view_carousel,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const CS()),
-          //     );),
-
-          // listtile('Basis fo null space',Icons.view_carousel,Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) =>const NS()),
-          //     );
-          // )
-          // Add more operations with icons
+          
         ],
       ),
     );

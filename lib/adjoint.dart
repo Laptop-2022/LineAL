@@ -16,9 +16,10 @@ class AdjWs extends StatelessWidget {
             title: const Text(
               "Adjoint of a matrix",
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),
             backgroundColor: Colors.black,
+            centerTitle: true
           ),
           backgroundColor: Colors.black,
           body: const Adj(),

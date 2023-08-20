@@ -15,9 +15,10 @@ class MulWs extends StatelessWidget {
             title: const Text(
               "Multiplication of two matrices",
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
             ),
             backgroundColor: Colors.black,
+            centerTitle: true
           ),
           backgroundColor: Colors.black,
           body: const Mul(),
