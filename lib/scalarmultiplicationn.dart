@@ -8,21 +8,22 @@ class KMulWs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Stateless Page of the scalar multiplication page",
-      home: Scaffold(
+        title: "Stateless Page of the scalar multiplication page",
+        home: Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.remove, color: Colors.white),
-            title: const Text(
-              "Scalar multiplication",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading: const Icon(Icons.remove, color: Colors.white),
+              title: const Text(
+                "Scalar multiplication",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const KMul(),
-    ));
+        ));
   }
 }
 
@@ -46,7 +47,7 @@ class KMulState extends State<KMul> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Row(
@@ -80,21 +81,23 @@ class KMulState extends State<KMul> {
             ),
           ],
         ),
-        const SizedBox(width: 10,),
+        const SizedBox(
+          width: 10,
+        ),
         Expanded(
-              child: TextField(
-                controller: kc,
-                decoration: const InputDecoration(
-                  labelText: "Scalar",
-                  filled: true,
-                  fillColor: Colors.grey,
-                ),
-                keyboardType: TextInputType.number,
-                // inputFormatters: [
-                //   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-                // ],
-              ),
+          child: TextField(
+            controller: kc,
+            decoration: const InputDecoration(
+              labelText: "Scalar",
+              filled: true,
+              fillColor: Colors.grey,
             ),
+            keyboardType: TextInputType.number,
+            // inputFormatters: [
+            //   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+            // ],
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
           child: ElevatedButton(
@@ -103,11 +106,21 @@ class KMulState extends State<KMul> {
                 setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
+                if (rows >= 5 || columns >= 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should be less than 5 for practical purposes"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
                 k = num.tryParse(kc.text) ?? 0;
-                m1 = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
-                ans = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
+                if (rows < 5 && columns < 5) {
+                  m1 = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                  ans = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                }
               });
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -118,28 +131,28 @@ class KMulState extends State<KMul> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0)
+        if (rows > 0 && columns > 0 && rows < 5 && columns < 5)
           Padding(
-            padding: const EdgeInsets.fromLTRB(0,0,0,15),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if(setmatrix==true)
-        Padding(
-          padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
-          child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                ans = scalarmultiply(m1, k);
-              });
-            },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-            child: const Text(
-              "Scalar Multiply",
-              style:
-                  TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
+        if (setmatrix == true && rows < 5 && columns < 5)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  ans = scalarmultiply(m1, k);
+                });
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              child: const Text(
+                "Scalar Multiply",
+                style:
+                    TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
+              ),
             ),
           ),
-        ),
         if (ans.isNotEmpty)
           Expanded(
             child: showMatrix(ans),
@@ -149,14 +162,14 @@ class KMulState extends State<KMul> {
   }
 }
 
-List<List<num>> scalarmultiply(List<List<num>> m1,num k) {
+List<List<num>> scalarmultiply(List<List<num>> m1, num k) {
   int rows = m1.length;
   int columns = m1[0].length;
   List<List<num>> ans =
       List.generate(rows, (i) => List.generate(columns, (j) => 0));
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < columns; j++) {
-      ans[i][j] = m1[i][j]*k;
+      ans[i][j] = m1[i][j] * k;
     }
   }
   return ans;

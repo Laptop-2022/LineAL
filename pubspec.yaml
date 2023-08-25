@@ -42,9 +42,9 @@ dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
   
 flutter_icons:
-  android: true
+  android: "launcher_icon"
   ios: true
-  image_path: "assets/Yoparagraph text.png"
+  image_path: "assets/icon/icon.png"
   
 
   # The "flutter_lints" package below contains a set of recommended lints to

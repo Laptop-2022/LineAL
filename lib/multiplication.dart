@@ -130,7 +130,14 @@ class MulState extends State<Mul> {
                 columns_1 = int.tryParse(cc_1.text) ?? 0;
                 rows_2 = int.tryParse(rc_2.text) ?? 0;
                 columns_2 = int.tryParse(cc_2.text) ?? 0;
-
+                if(rows_1 >= 5 || columns_1 >= 5 || rows_2 >= 5 || columns_2 >= 5){
+                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should be less than 5 for practical purposes"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
                 if (columns_1 != rows_2) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
@@ -140,7 +147,7 @@ class MulState extends State<Mul> {
                   ;
                   return;
                 }
-               if(columns_1 ==  rows_2) {
+               if(columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5) {
                 m1 = List.generate(
                     rows_1, (i) => List.generate(columns_1, (j) => 0));
                 m2 = List.generate(
@@ -159,17 +166,17 @@ class MulState extends State<Mul> {
             ),
           ),
         ),
-        if (rows_1 > 0 && columns_1 > 0 && columns_1 ==  rows_2 )
+        if (rows_1 > 0 && columns_1 > 0 && columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows_1, columns_1, m1),
           ),
-        if (rows_2 > 0 && columns_2 > 0 && columns_1 ==  rows_2)
+        if (rows_2 > 0 && columns_2 > 0 && columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5)
           Expanded(
             flex: 1,
             child: build2DArray(rows_2, columns_2, m2),
           ),
-        if (setmatrix == true && columns_1 ==  rows_2)
+        if (setmatrix == true && columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(

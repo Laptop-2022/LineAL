@@ -97,7 +97,7 @@ class InvState extends State<Inv> {
                     dismissDirection: DismissDirection.down,
                   ));
                   return;
-                } else if (rows == columns && rows > 5) {
+                } else if (rows == columns && rows >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                         "The number of rows and columns should be less than 5"),
@@ -126,7 +126,7 @@ class InvState extends State<Inv> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows == columns)
+        if (setmatrix == true && rows == columns && rows < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(

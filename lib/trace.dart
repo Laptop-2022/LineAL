@@ -11,15 +11,16 @@ class TraceWs extends StatelessWidget {
         title: "Stateless Page of the Trace page",
         home: Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.remove, color: Colors.white),
-            title: const Text(
-              "Trace of a matrix",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading: const Icon(Icons.remove, color: Colors.white),
+              title: const Text(
+                "Trace of a matrix",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const Trace(),
         ));
@@ -89,8 +90,18 @@ class TraceState extends State<Trace> {
                 setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
-                m1 = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
+                if (rows >= 5 || columns >= 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should be less than 5 for practical purposes"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
+                if (rows < 5 && columns < 5) {
+                  m1 = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                }
               });
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -101,12 +112,12 @@ class TraceState extends State<Trace> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0)
+        if (rows > 0 && columns > 0 && rows < 5 && columns < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true)
+        if (setmatrix == true && rows < 5 && columns < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -123,10 +134,12 @@ class TraceState extends State<Trace> {
               ),
             ),
           ),
-          const SizedBox(width: 10,),
-        if (ans !=  0)
+        const SizedBox(
+          width: 10,
+        ),
+        if (ans != 0)
           Expanded(
-            child: showNumber(ans,"trace"),
+            child: showNumber(ans, "trace"),
           ),
       ],
     );

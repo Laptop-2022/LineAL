@@ -90,10 +90,20 @@ class RrEfState extends State<RrEf> {
                 setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
-                m1 = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
-                ans = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
+                if (rows >= 5 || columns >= 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should be less than 5 for practical purposes"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
+                if (rows < 5 && columns < 5) {
+                  m1 = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                  ans = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                }
               });
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -104,12 +114,12 @@ class RrEfState extends State<RrEf> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0)
+        if (rows > 0 && columns > 0 && rows < 5 && columns < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true)
+        if (setmatrix == true && rows < 5 && columns < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(

@@ -83,7 +83,7 @@ class AdjState extends State<Adj> {
           width: 10,
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
+          padding: const EdgeInsets.fromLTRB(150, 5, 150, 5),
           child: ElevatedButton(
             onPressed: () {
               setState(() {
@@ -97,7 +97,7 @@ class AdjState extends State<Adj> {
                     dismissDirection: DismissDirection.down,
                   ));
                   return;
-                } else if (rows == columns && rows > 5) {
+                } else if (rows == columns && rows >= 5 && columns >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                         "The number of rows and columns should be less than 5"),
@@ -126,7 +126,7 @@ class AdjState extends State<Adj> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows == columns)
+        if (setmatrix == true && rows == columns && rows < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(

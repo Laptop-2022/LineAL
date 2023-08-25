@@ -8,21 +8,22 @@ class TransposeWs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Stateless Page of the Transpose page",
-      home: Scaffold(
+        title: "Stateless Page of the Transpose page",
+        home: Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.swap_horiz, color: Colors.white),
-            title: const Text(
-              "Transpose",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading: const Icon(Icons.swap_horiz, color: Colors.white),
+              title: const Text(
+                "Transpose",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const Transpose(),
-    ));
+        ));
   }
 }
 
@@ -44,7 +45,7 @@ class TransposeState extends State<Transpose> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Row(
@@ -78,7 +79,9 @@ class TransposeState extends State<Transpose> {
             ),
           ],
         ),
-        const SizedBox(width: 10,),
+        const SizedBox(
+          width: 10,
+        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
           child: ElevatedButton(
@@ -87,10 +90,20 @@ class TransposeState extends State<Transpose> {
                 setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
-                m1 = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
-                ans = List.generate(
-                    rows, (i) => List.generate(columns, (j) => 0));
+                if (rows >= 5 || columns >= 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should be less than 5 for practical purposes"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
+                if (rows < 5 && columns < 5) {
+                  m1 = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                  ans = List.generate(
+                      rows, (i) => List.generate(columns, (j) => 0));
+                }
               });
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -101,28 +114,28 @@ class TransposeState extends State<Transpose> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0)
+        if (rows > 0 && columns > 0 && rows < 5 && columns < 5)
           Padding(
-            padding: const EdgeInsets.fromLTRB(0,0,0,15),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if(setmatrix==true)
-        Padding(
-          padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
-          child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                ans = transpose(m1);
-              });
-            },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-            child: const Text(
-              "Find Transpose",
-              style:
-                  TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
+        if (setmatrix == true && rows < 5 && columns < 5)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  ans = transpose(m1);
+                });
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              child: const Text(
+                "Find Transpose",
+                style:
+                    TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
+              ),
             ),
           ),
-        ),
         if (ans.isNotEmpty)
           Expanded(
             child: showMatrix(ans),
