@@ -88,9 +88,16 @@ class SubState extends State<Sub> {
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
+                if (rows == 0 || columns == 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns can't be zero or empty"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
                 if (rows >= 5 || columns >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
@@ -99,13 +106,14 @@ class SubState extends State<Sub> {
                   ));
                   return;
                 }
-                if (rows < 5 && columns < 5) {
+                if (rows < 5 && columns < 5 && (rows > 0 && columns > 0)) {
                   m1 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
                   m2 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
                   ans = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },

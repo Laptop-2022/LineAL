@@ -8,19 +8,20 @@ class InvWs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Stateless Page of the inverse page",
+        title: "Stateless Page of the Inverse page",
         home: Scaffold(
           appBar: AppBar(
-            leading:
-                const Icon(Icons.swap_vert, color: Colors.white),
-            title: const Text(
-              "Inverse of a matrix",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading:
+                  const Icon(Icons.format_indent_increase, color: Colors.white),
+              title: const Text(
+                "Inverse of a matrix",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const Inv(),
         ));
@@ -83,21 +84,28 @@ class InvState extends State<Inv> {
           width: 10,
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
+          padding: const EdgeInsets.fromLTRB(150, 5, 150, 5),
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
-                if (rows != columns) {
+                if (rows == 0 || columns == 0) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
-                        "Adjoint of a matrix is defined only for square matrices i.e. No. of rows = No. of columns"),
+                        "The number of rows or columns should not be zero or empty"),
                     dismissDirection: DismissDirection.down,
                   ));
                   return;
-                } else if (rows == columns && rows >= 5) {
+                }
+                if (rows != columns) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "Inverse of a matrix is defined only for square matrices i.e. No. of rows = No. of columns"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                } else if (rows >= 5 && columns >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                         "The number of rows and columns should be less than 5"),
@@ -105,11 +113,14 @@ class InvState extends State<Inv> {
                   ));
                   return;
                 }
-                if (rows == columns) {
+                if (rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0)) {
                   m1 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
                   ans = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },
@@ -121,12 +132,16 @@ class InvState extends State<Inv> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0 && rows == columns && rows < 5)
+        if (rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows == columns && rows < 5)
+        if (setmatrix == true && rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -146,12 +161,12 @@ class InvState extends State<Inv> {
         const SizedBox(
           width: 20,
         ),
-        if (ans.isNotEmpty)
+        if (ans.isNotEmpty && rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Expanded(
             child: showMatrix(ans),
           ),
-        if(ans.isEmpty && setmatrix == true)
-          const Expanded(child:Text("The inverse of the matrix doesn't exist",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),),)
       ],
     );
   }

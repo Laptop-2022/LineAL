@@ -8,10 +8,11 @@ class RrEfWs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Stateless Page of the scalar multiplication page",
+        title: "Stateless Page of the RREF page",
         home: Scaffold(
           appBar: AppBar(
-              leading: const Icon(Icons.linear_scale, color: Colors.white),
+              leading:
+                  const Icon(Icons.format_indent_increase, color: Colors.white),
               title: const Text(
                 "RREF of a matrix",
                 style: TextStyle(
@@ -83,26 +84,35 @@ class RrEfState extends State<RrEf> {
           width: 10,
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
+          padding: const EdgeInsets.fromLTRB(150, 5, 150, 5),
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
-                if (rows >= 5 || columns >= 5) {
+                if (rows == 0 || columns == 0) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
-                        "The number of rows and columns should be less than 5 for practical purposes"),
+                        "The number of rows or columns should not be zero or empty"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                } else if (rows >= 5 && columns >= 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should be less than 5"),
                     dismissDirection: DismissDirection.down,
                   ));
                   return;
                 }
-                if (rows < 5 && columns < 5) {
+                if (
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0)) {
                   m1 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
                   ans = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },
@@ -114,12 +124,16 @@ class RrEfState extends State<RrEf> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0 && rows < 5 && columns < 5)
+        if (
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows < 5 && columns < 5)
+        if (setmatrix == true  &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -136,7 +150,12 @@ class RrEfState extends State<RrEf> {
               ),
             ),
           ),
-        if (ans.isNotEmpty)
+        const SizedBox(
+          width: 20,
+        ),
+        if (ans.isNotEmpty &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Expanded(
             child: showMatrix(ans),
           ),

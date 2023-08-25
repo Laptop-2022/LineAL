@@ -126,11 +126,21 @@ class MulState extends State<Mul> {
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows_1 = int.tryParse(rc_1.text) ?? 0;
                 columns_1 = int.tryParse(cc_1.text) ?? 0;
                 rows_2 = int.tryParse(rc_2.text) ?? 0;
                 columns_2 = int.tryParse(cc_2.text) ?? 0;
+                if (rows_1 == 0 ||
+                    rows_2 == 0 ||
+                    columns_1 == 0 ||
+                    columns_2 == 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should not be zero or empty"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
                 if (rows_1 >= 5 ||
                     columns_1 >= 5 ||
                     rows_2 >= 5 ||
@@ -153,13 +163,18 @@ class MulState extends State<Mul> {
                 if (columns_1 == rows_2 && rows_1 < 5 ||
                     columns_1 < 5 ||
                     rows_2 < 5 ||
-                    columns_2 < 5) {
+                    columns_2 < 5 &&
+                        (rows_1 > 0 &&
+                            rows_2 > 0 &&
+                            columns_2 > 0 &&
+                            columns_1 > 0)) {
                   m1 = List.generate(
                       rows_1, (i) => List.generate(columns_1, (j) => 0));
                   m2 = List.generate(
                       rows_2, (i) => List.generate(columns_2, (j) => 0));
                   ans = List.generate(
                       rows_2, (i) => List.generate(columns_2, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },
@@ -171,26 +186,31 @@ class MulState extends State<Mul> {
             ),
           ),
         ),
-        if (rows_1 > 0 && columns_1 > 0 && columns_1 == rows_2 && rows_1 < 5 ||
-            columns_1 < 5 ||
-            rows_2 < 5 ||
-            columns_2 < 5)
+        if (rows_1 > 0 &&
+            columns_1 > 0 &&
+            columns_1 == rows_2 &&
+            (rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5) &&
+            (rows_1 > 0 && rows_2 > 0 && columns_2 > 0 && columns_1 > 0) &&
+            (columns_1 == rows_2))
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows_1, columns_1, m1),
           ),
-        if (rows_2 > 0 && columns_2 > 0 && columns_1 == rows_2 && rows_1 < 5 ||
-            columns_1 < 5 ||
-            rows_2 < 5 ||
-            columns_2 < 5)
+        if (rows_2 > 0 &&
+            columns_2 > 0 &&
+            columns_1 == rows_2 &&
+            (rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5) &&
+            (rows_1 > 0 && rows_2 > 0 && columns_2 > 0 && columns_1 > 0) &&
+            (columns_1 == rows_2))
           Expanded(
             flex: 1,
             child: build2DArray(rows_2, columns_2, m2),
           ),
-        if (setmatrix == true && columns_1 == rows_2 && rows_1 < 5 ||
-            columns_1 < 5 ||
-            rows_2 < 5 ||
-            columns_2 < 5)
+        if (setmatrix == true &&
+            columns_1 == rows_2 &&
+            (rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5) &&
+            (rows_1 > 0 && rows_2 > 0 && columns_2 > 0 && columns_1 > 0) &&
+            (columns_1 == rows_2))
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -207,7 +227,9 @@ class MulState extends State<Mul> {
               ),
             ),
           ),
-        if (ans.isNotEmpty)
+        if (ans.isNotEmpty &&
+            (rows_1 > 0 && rows_2 > 0 && columns_2 > 0 && columns_1 > 0) &&
+            (columns_1 == rows_2))
           Expanded(
             child: showMatrix(ans),
           ),
@@ -226,7 +248,7 @@ List<List<num>> mul(List<List<num>> m1, List<List<num>> m2) {
   for (int i = 0; i < columns_1; i++) {
     for (int j = 0; j < rows_2; j++) {
       for (int k = 0; k < columns_1; k++) {
-        ans[i][j] = m1[i][k] * m2[k][j];
+        ans[i][j] += m1[i][k] * m2[k][j];
       }
     }
   }

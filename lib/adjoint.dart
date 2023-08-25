@@ -11,16 +11,17 @@ class AdjWs extends StatelessWidget {
         title: "Stateless Page of the adjoint page",
         home: Scaffold(
           appBar: AppBar(
-            leading:
-                const Icon(Icons.format_indent_increase, color: Colors.white),
-            title: const Text(
-              "Adjoint of a matrix",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading:
+                  const Icon(Icons.format_indent_increase, color: Colors.white),
+              title: const Text(
+                "Adjoint of a matrix",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const Adj(),
         ));
@@ -87,9 +88,16 @@ class AdjState extends State<Adj> {
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
+                if (rows == 0 || columns == 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows or columns should not be zero or empty"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
                 if (rows != columns) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
@@ -97,7 +105,7 @@ class AdjState extends State<Adj> {
                     dismissDirection: DismissDirection.down,
                   ));
                   return;
-                } else if (rows == columns && rows >= 5 && columns >= 5) {
+                } else if (rows >= 5 && columns >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                         "The number of rows and columns should be less than 5"),
@@ -105,11 +113,14 @@ class AdjState extends State<Adj> {
                   ));
                   return;
                 }
-                if (rows == columns) {
+                if (rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0)) {
                   m1 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
                   ans = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },
@@ -121,12 +132,16 @@ class AdjState extends State<Adj> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0 && rows == columns && rows < 5)
+        if (rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows == columns && rows < 5)
+        if (setmatrix == true && rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -146,7 +161,9 @@ class AdjState extends State<Adj> {
         const SizedBox(
           width: 20,
         ),
-        if (ans.isNotEmpty)
+        if (ans.isNotEmpty && rows == columns &&
+                    (rows < 5 && columns < 5) &&
+                    (rows > 0 && columns > 0))
           Expanded(
             child: showMatrix(ans),
           ),

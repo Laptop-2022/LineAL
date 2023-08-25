@@ -243,6 +243,14 @@ num determinant(List<List<num>> m) {
     return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
   }
 
+  if (m.length == 4 && m[0].length == 4) {
+    List<List<num>> adj = [];
+    List<List<num>> madj = [];
+    adj = adjoint(m);
+    madj = mul(m,adj);
+    return madj[0][0];
+  }
+
   num det = 0;
   int rows = m.length;
   int columns = m[0].length;

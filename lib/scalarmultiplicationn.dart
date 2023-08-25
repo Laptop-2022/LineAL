@@ -88,7 +88,7 @@ class KMulState extends State<KMul> {
           child: TextField(
             controller: kc,
             decoration: const InputDecoration(
-              labelText: "Scalar",
+              labelText: "Scalar - Default value is 0",
               filled: true,
               fillColor: Colors.grey,
             ),
@@ -98,14 +98,24 @@ class KMulState extends State<KMul> {
             // ],
           ),
         ),
+        const SizedBox(width: 10),
         Padding(
           padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
+                k = num.tryParse(kc.text) ?? 0;
+                if (rows == 0 || columns == 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows or columns or scalar can't be zero or empty"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  setmatrix = false;
+                  return;
+                }
                 if (rows >= 5 || columns >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
@@ -114,12 +124,12 @@ class KMulState extends State<KMul> {
                   ));
                   return;
                 }
-                k = num.tryParse(kc.text) ?? 0;
-                if (rows < 5 && columns < 5) {
+                if (rows < 5 && columns < 5 && (rows > 0 && columns > 0)) {
                   m1 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
                   ans = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },
@@ -136,7 +146,9 @@ class KMulState extends State<KMul> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows < 5 && columns < 5)
+        if (setmatrix == true &&
+            rows < 5 &&
+            columns < 5 && rows > 0 && columns > 0)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -153,7 +165,7 @@ class KMulState extends State<KMul> {
               ),
             ),
           ),
-        if (ans.isNotEmpty)
+        if (ans.isNotEmpty && setmatrix == true)
           Expanded(
             child: showMatrix(ans),
           ),

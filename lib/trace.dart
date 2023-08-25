@@ -87,9 +87,16 @@ class TraceState extends State<Trace> {
           child: ElevatedButton(
             onPressed: () {
               setState(() {
-                setmatrix = true;
                 rows = int.tryParse(rc.text) ?? 0;
                 columns = int.tryParse(cc.text) ?? 0;
+                if (rows == 0 || columns == 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "The number of rows and columns should not be zero or empty"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
                 if (rows >= 5 || columns >= 5) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
@@ -98,9 +105,18 @@ class TraceState extends State<Trace> {
                   ));
                   return;
                 }
-                if (rows < 5 && columns < 5) {
+                if(rows != columns){
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "Trace is defined only for square matrices"),
+                    dismissDirection: DismissDirection.down,
+                  ));
+                  return;
+                }
+                if ((rows == columns) && (rows < 5 && columns < 5) && (rows > 0 && columns > 0)) {
                   m1 = List.generate(
                       rows, (i) => List.generate(columns, (j) => 0));
+                  setmatrix = true;
                 }
               });
             },
@@ -112,12 +128,12 @@ class TraceState extends State<Trace> {
             ),
           ),
         ),
-        if (rows > 0 && columns > 0 && rows < 5 && columns < 5)
+        if ((rows == columns) && (rows < 5 && columns < 5) && (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows, columns, m1),
           ),
-        if (setmatrix == true && rows < 5 && columns < 5)
+        if (setmatrix == true && (rows == columns) && (rows < 5 && columns < 5) && (rows > 0 && columns > 0))
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -137,7 +153,7 @@ class TraceState extends State<Trace> {
         const SizedBox(
           width: 10,
         ),
-        if (ans != 0)
+        if (ans != 0&& (rows == columns) && (rows < 5 && columns < 5) && (rows > 0 && columns > 0))
           Expanded(
             child: showNumber(ans, "trace"),
           ),
