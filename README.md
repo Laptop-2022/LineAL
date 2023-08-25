@@ -1,6 +1,6 @@
 # LineAL
 
-An APK to the app can be found here -> https://drive.google.com/file/d/13smhYjHZqjnXUDiK2CXrT_MA5qm7ma67/view?usp=sharing
+An APK to the app can be found here -> https://drive.google.com/file/d/13smhYjHZqjnXUDiK2CXrT_MA5qm7ma67/view?usp=drive_link
 This repository contains the source code of the application "LineAL". It is a flutter-based application that helps the user perform operations such as the addition of two matrices, subtraction of two matrices, multiplication of two matrices, etc.
 
 # Operations that can be performed on the app.
