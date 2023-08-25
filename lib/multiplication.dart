@@ -11,15 +11,16 @@ class MulWs extends StatelessWidget {
         title: "Stateless Page of the Multiplication page",
         home: Scaffold(
           appBar: AppBar(
-            leading: const Icon(Icons.close, color: Colors.white),
-            title: const Text(
-              "Multiplication",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 30),
-            ),
-            backgroundColor: Colors.black,
-            centerTitle: true
-          ),
+              leading: const Icon(Icons.close, color: Colors.white),
+              title: const Text(
+                "Multiplication",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+              backgroundColor: Colors.black,
+              centerTitle: true),
           backgroundColor: Colors.black,
           body: const Mul(),
         ));
@@ -130,8 +131,11 @@ class MulState extends State<Mul> {
                 columns_1 = int.tryParse(cc_1.text) ?? 0;
                 rows_2 = int.tryParse(rc_2.text) ?? 0;
                 columns_2 = int.tryParse(cc_2.text) ?? 0;
-                if(rows_1 >= 5 || columns_1 >= 5 || rows_2 >= 5 || columns_2 >= 5){
-                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                if (rows_1 >= 5 ||
+                    columns_1 >= 5 ||
+                    rows_2 >= 5 ||
+                    columns_2 >= 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                         "The number of rows and columns should be less than 5 for practical purposes"),
                     dismissDirection: DismissDirection.down,
@@ -143,19 +147,20 @@ class MulState extends State<Mul> {
                     content: Text(
                         "The number of columns in the first matrix should be equal to the number of rows in the second matrix"),
                     dismissDirection: DismissDirection.down,
-                  ))
-                  ;
+                  ));
                   return;
                 }
-               if(columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5) {
-                m1 = List.generate(
-                    rows_1, (i) => List.generate(columns_1, (j) => 0));
-                m2 = List.generate(
-                    rows_2, (i) => List.generate(columns_2, (j) => 0));
-                ans = List.generate(
-                    rows_2, (i) => List.generate(columns_2, (j) => 0));
-               }
-              
+                if (columns_1 == rows_2 && rows_1 < 5 ||
+                    columns_1 < 5 ||
+                    rows_2 < 5 ||
+                    columns_2 < 5) {
+                  m1 = List.generate(
+                      rows_1, (i) => List.generate(columns_1, (j) => 0));
+                  m2 = List.generate(
+                      rows_2, (i) => List.generate(columns_2, (j) => 0));
+                  ans = List.generate(
+                      rows_2, (i) => List.generate(columns_2, (j) => 0));
+                }
               });
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -166,17 +171,26 @@ class MulState extends State<Mul> {
             ),
           ),
         ),
-        if (rows_1 > 0 && columns_1 > 0 && columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5)
+        if (rows_1 > 0 && columns_1 > 0 && columns_1 == rows_2 && rows_1 < 5 ||
+            columns_1 < 5 ||
+            rows_2 < 5 ||
+            columns_2 < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: build2DArray(rows_1, columns_1, m1),
           ),
-        if (rows_2 > 0 && columns_2 > 0 && columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5)
+        if (rows_2 > 0 && columns_2 > 0 && columns_1 == rows_2 && rows_1 < 5 ||
+            columns_1 < 5 ||
+            rows_2 < 5 ||
+            columns_2 < 5)
           Expanded(
             flex: 1,
             child: build2DArray(rows_2, columns_2, m2),
           ),
-        if (setmatrix == true && columns_1 ==  rows_2 && rows_1 < 5 || columns_1 < 5 || rows_2 < 5 || columns_2 < 5)
+        if (setmatrix == true && columns_1 == rows_2 && rows_1 < 5 ||
+            columns_1 < 5 ||
+            rows_2 < 5 ||
+            columns_2 < 5)
           Padding(
             padding: const EdgeInsets.fromLTRB(150, 0, 150, 5),
             child: ElevatedButton(
@@ -187,7 +201,7 @@ class MulState extends State<Mul> {
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
               child: const Text(
-                "Subtract",
+                "Multiply",
                 style:
                     TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
               ),
