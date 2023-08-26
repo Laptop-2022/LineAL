@@ -1,7 +1,7 @@
 # LineAL
 
 An APK to the app can be found here -> https://drive.google.com/file/d/13smhYjHZqjnXUDiK2CXrT_MA5qm7ma67/view?usp=drive_link
-This repository contains the source code of the application "LineAL". It is a flutter-based application that helps the user perform operations such as the addition of two matrices, subtraction of two matrices, multiplication of two matrices, etc.
+This repository contains the source code of the application "LineAL" I made for Zense - Recruitment - 2023. It is a flutter-based application that helps the user perform operations such as the addition of two matrices, subtraction of two matrices, multiplication of two matrices, etc. This app is useful for anyone learning linear algebra.
 
 # Operations that can be performed on the app.
 The following operations can be performed on the app:
@@ -32,6 +32,10 @@ The following operations can be performed on the app:
 13. After entering the elements, hit "Find Transpose". The answer will be displayed in the below grid.
 14. ![WhatsApp Image 2023-08-21 at 00 33 25](https://github.com/Laptop-2022/LineAL/assets/118844606/bccc438e-ab31-42f5-a2e2-2a61b92b3551)
 
-
-
-
+# Challenges Faced.
+In the course of building the project, I faced quite a few challenges.
+1. Setting up the development environment proved to be quite challenging, particularly with Android Studio pushing my PC to its limits.
+2. Learning Dart posed a bit of a challenge, mainly due to the null-safety feature of the language. As a result, I made numerous errors in the beginning while 
+   writing Dart code.
+3. Whenever I wrote code within the Flutter framework and encountered an error, I struggled with debugging since the only error message I received was "Script   
+   Error."
