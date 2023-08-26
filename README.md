@@ -2,6 +2,9 @@
 
 An APK to the app can be found here -> https://drive.google.com/file/d/13smhYjHZqjnXUDiK2CXrT_MA5qm7ma67/view?usp=drive_link
 This repository contains the source code of the application "LineAL" I made for Zense - Recruitment - 2023. It is a flutter-based application that helps the user perform operations such as the addition of two matrices, subtraction of two matrices, multiplication of two matrices, etc. This app is useful for anyone learning linear algebra.
+ 
+# Objective
+We were required to take Maths - 2 in the second semester of college. The course was basically linear algebra. It involved a lot of operations with matrices and I found those calculations tiresome. Consequently, I decided to make a piece of software that would help me perform these calculations without me banging my head.
 
 # Operations that can be performed on the app.
 The following operations can be performed on the app:
@@ -32,6 +35,9 @@ The following operations can be performed on the app:
 13. After entering the elements, hit "Find Transpose". The answer will be displayed in the below grid.
 14. ![WhatsApp Image 2023-08-21 at 00 33 25](https://github.com/Laptop-2022/LineAL/assets/118844606/bccc438e-ab31-42f5-a2e2-2a61b92b3551)
 
+# Implementation Details
+The entire project has been implemented in Flutter framework written in the Dart programming language. I have used Canva's online icon generator tool to generate the icon for the application.
+
 # Challenges Faced.
 In the course of building the project, I faced quite a few challenges.
 1. Setting up the development environment proved to be quite challenging, particularly with Android Studio pushing my PC to its limits.
@@ -39,3 +45,6 @@ In the course of building the project, I faced quite a few challenges.
    writing Dart code.
 3. Whenever I wrote code within the Flutter framework and encountered an error, I struggled with debugging since the only error message I received was "Script   
    Error."
+
+# Future Scope of the project.
+At present the app can only perform a fraction of the operations on matrices. In the future, the app can be enabled to perform entire calculations involving matrix algebra. It can be developed to do integral calculus, differential calculus, and statistics. One could apply ML techniques so that the user can take a picture of the expression or matrix and get the answer without having to type or the user can just write on the screen to give the input. This is the future scope that this project can have and I believe if we were to implement all these features it would be an app that every college student would keep.
