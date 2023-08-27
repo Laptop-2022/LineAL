@@ -23,18 +23,19 @@ The following operations can be performed on the app:
 # How to use the app?
 1. Launch the application on your device.
 2. Once you launch the app, the home page looks like this,
-3. ![WhatsApp Image 2023-08-21 at 00 33 24](https://github.com/Laptop-2022/LineAL/assets/118844606/58ee4d9e-afc1-4fb3-87a3-6c831dcc2d9d)
+3. ![IMG-20230827-WA0018](https://github.com/Laptop-2022/LineAL/assets/118844606/1fbd9c99-f179-485f-8a8d-39d084f521a8)
 4. Click on the button below the welcome message.
 5. Upon clicking the button, you will be directed to a page that looks like this,
-6. ![WhatsApp Image 2023-08-21 at 00 33 24](https://github.com/Laptop-2022/LineAL/assets/118844606/9d4aecea-e6ae-49a3-8491-e271a039be2f)
-7. Select the operation you wish to perform ("Transpose of a matrix in this case"). You will be directed to the below page
-8. ![WhatsApp Image 2023-08-21 at 00 33 24](https://github.com/Laptop-2022/LineAL/assets/118844606/9027615e-997a-4638-9d82-336647e25256)
+6. ![IMG-20230827-WA0019](https://github.com/Laptop-2022/LineAL/assets/118844606/3e379da4-586d-4017-98c6-ec1448f36d95)
+7. Select the operation you wish to perform ("RREF of a matrix in this case"). You will be directed to the below page
+8. ![IMG-20230827-WA0020](https://github.com/Laptop-2022/LineAL/assets/118844606/e21fc505-7b61-4d7b-9f9e-213d1af414cb)
 9. Enter the number of rows and columns and hit "Set Matrix". You will see a page that looks like this.
-10. ![WhatsApp Image 2023-08-21 at 00 33 25](https://github.com/Laptop-2022/LineAL/assets/118844606/b4376404-5bcc-4955-8764-627b3d3211d1)
+10. ![IMG-20230827-WA0021](https://github.com/Laptop-2022/LineAL/assets/118844606/74dcea90-60a9-4355-8c18-ceee2c730a8d)
 11. Enter the elements of the matrix in the grid provided. For the user, the position of the grid elements is also given.
-12. ![WhatsApp Image 2023-08-21 at 00 33 25](https://github.com/Laptop-2022/LineAL/assets/118844606/ce13a490-4f2e-40c9-9991-fb1a43b9db5c)
-13. After entering the elements, hit "Find Transpose". The answer will be displayed in the below grid.
-14. ![WhatsApp Image 2023-08-21 at 00 33 25](https://github.com/Laptop-2022/LineAL/assets/118844606/bccc438e-ab31-42f5-a2e2-2a61b92b3551)
+12. ![IMG-20230827-WA0022](https://github.com/Laptop-2022/LineAL/assets/118844606/8adf4a96-8929-4b68-b664-d4669e401008)
+13. After entering the elements, hit "Find RREF". The answer will be displayed in the below grid.
+14. ![IMG-20230827-WA0023](https://github.com/Laptop-2022/LineAL/assets/118844606/8be41d9a-7242-445d-940d-89e332a55bbe)
+
 
 # Implementation Details
 The entire project has been implemented in Flutter framework written in the Dart programming language. I have used Canva's online icon generator tool to generate the icon for the application.
