@@ -169,7 +169,6 @@ List<List<num>> rref(List<List<num>> matrix) {
   int numCols = matrix[0].length;
 
   for (int pivotRow = 0; pivotRow < numRows; pivotRow++) {
-    // Find the pivot column for the current row
     int pivotCol = -1;
     for (int col = 0; col < numCols - 1; col++) {
       if (matrix[pivotRow][col] != 0) {
@@ -179,17 +178,14 @@ List<List<num>> rref(List<List<num>> matrix) {
     }
 
     if (pivotCol == -1) {
-      // Skip if the pivot column is not found
       continue;
     }
 
-    // Scale the pivot row so that the pivot element becomes 1
     num pivotValue = matrix[pivotRow][pivotCol];
     for (int col = 0; col < numCols; col++) {
       matrix[pivotRow][col] /= pivotValue;
     }
 
-    // Eliminate other elements in the pivot column
     for (int row = 0; row < numRows; row++) {
       if (row != pivotRow) {
         num scale = matrix[row][pivotCol];
